@@ -101,6 +101,39 @@
 \newcommand{\solution}{\par\smallskip{\large\bfseries\color{navy}\faPencil*\ \ Solution}\par}
 \newcommand{\exercise}[1]{\clearpage\section{Exercise #1}}
 
+
+% ------------------------------------------------------------------ title page
+% \solutionstitlepage{<chapter number>}{<chapter title>}{<extra line about the code>}
+\newcommand{\solutionstitlepage}[3]{%
+\begin{titlepage}
+\centering
+\vspace*{3cm}
+{\color{book}\large Worked solutions to}\\[0.6em]
+{\Huge\bfseries\color{navy} Bayesian Statistical Methods}\\[0.4em]
+{\large\color{book} With Applications to Machine Learning --- Reich \& Ghosh (2nd ed.)}\\[2.5cm]
+{\color{navy}\rule{0.6\linewidth}{1pt}}\\[1em]
+{\huge Chapter #1}\\[0.4em]
+{\LARGE\itshape #2}\\[1em]
+{\color{navy}\rule{0.6\linewidth}{1pt}}\\[2cm]
+\begin{minipage}{0.8\linewidth}
+\small
+Every exercise is presented in the same order:
+\begin{enumerate}[leftmargin=1.5em]
+  \item[\color{book}\faBook] the \textbf{exact} exercise text from the book;
+  \item[\color{mine}\faComment*] the problem \textbf{in plain words};
+  \item[\color{recall}\faGraduationCap] the \textbf{background} you need, recalled from scratch;
+  \item[\color{idea}\faLightbulb] the \textbf{key idea} that unlocks the problem;
+  \item[\color{navy}\faPencil*] a \textbf{step-by-step solution} --- every algebra step written out, with a \emph{Why?} note whenever a step is not obvious;
+  \item[\color{check}\faCheckDouble] a \textbf{sanity check} of the answer;
+  \item[\color{ans}\faCheckCircle] the boxed \textbf{answer};
+  \item[\color{warn}\faExclamationTriangle] \textbf{takeaways} and common mistakes.
+\end{enumerate}
+#3
+\end{minipage}
+\vfill
+{\small\color{book} Sai Sridhar \quad$\cdot$\quad \today}
+\end{titlepage}}
+
 % ------------------------------------------------------------------ code
 \lstdefinestyle{rstyle}{language=R, basicstyle=\ttfamily\footnotesize, backgroundcolor=\color{codebg},
   keywordstyle=\color{navy}\bfseries, commentstyle=\color{book}\itshape, stringstyle=\color{mine!70!black},
