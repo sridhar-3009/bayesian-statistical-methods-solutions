@@ -1,0 +1,17 @@
+# Never commit the textbook itself
+Bayesian Statistical Methods With Applications*.pdf
+*z-library*
+*z-lib*
+*1lib*
+
+# LaTeX build artefacts
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.xdv
+.DS_Store
+.Rhistory

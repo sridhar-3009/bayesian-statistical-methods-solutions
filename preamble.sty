@@ -1,0 +1,109 @@
+% preamble.sty -- shared styling for every chapter of the solutions
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{preamble}[2026/10/20 Bayesian Statistical Methods solutions]
+
+% ------------------------------------------------------------------ page & fonts
+\RequirePackage[a4paper, margin=2.3cm, headheight=14pt]{geometry}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{libertinus}
+\RequirePackage{amsmath, amssymb, mathtools, bm}
+\RequirePackage{microtype}
+\RequirePackage{graphicx, booktabs, array, multirow}
+\RequirePackage[shortlabels]{enumitem}
+\RequirePackage{xcolor}
+\RequirePackage[most]{tcolorbox}
+\RequirePackage{fontawesome5}
+\RequirePackage{titlesec, fancyhdr}
+\RequirePackage{listings}
+\RequirePackage[hidelinks]{hyperref}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlist{itemsep=0.15em, topsep=0.3em}
+
+% ------------------------------------------------------------------ palette
+\definecolor{ink}{HTML}{1B2631}
+\definecolor{navy}{HTML}{1F4E79}
+\definecolor{book}{HTML}{5D6D7E}
+\definecolor{bookbg}{HTML}{F4F6F7}
+\definecolor{mine}{HTML}{17A589}
+\definecolor{minebg}{HTML}{E8F8F5}
+\definecolor{idea}{HTML}{D68910}
+\definecolor{ideabg}{HTML}{FEF5E7}
+\definecolor{ans}{HTML}{1F4E79}
+\definecolor{ansbg}{HTML}{EBF5FB}
+\definecolor{warn}{HTML}{C0392B}
+\definecolor{warnbg}{HTML}{FDEDEC}
+\definecolor{codebg}{HTML}{FBFCFC}
+\color{ink}
+
+% ------------------------------------------------------------------ headings
+\titleformat{\section}{\Large\bfseries\color{navy}}{}{0pt}{}[{\color{navy}\titlerule[0.8pt]}]
+\titlespacing*{\section}{0pt}{1.6em}{0.8em}
+\titleformat{\subsection}{\large\bfseries\color{navy}}{}{0pt}{}
+\setcounter{secnumdepth}{0}   % titles already say "Exercise 1.N"
+
+\RequirePackage{tocloft}
+\renewcommand{\cftsecfont}{\color{ink}}
+\renewcommand{\cftsecpagefont}{\color{navy}}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\setlength{\cftbeforesecskip}{4pt}
+\renewcommand{\cfttoctitlefont}{\Large\bfseries\color{navy}}
+
+\newcommand{\step}[1]{\par\smallskip{\bfseries\color{navy}\faAngleRight\ #1}\par}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\small\color{book}Bayesian Statistical Methods --- Solutions}
+\fancyhead[R]{\small\color{book}\chaptername}
+\fancyfoot[C]{\small\color{book}\thepage}
+\providecommand{\chaptername}{}
+
+% ------------------------------------------------------------------ boxes
+\tcbset{base/.style={enhanced, breakable, boxrule=0.6pt, arc=2.5pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt, before skip=0.7em, after skip=0.7em,
+    fonttitle=\bfseries\small, coltitle=white, attach boxed title to top left={xshift=8pt, yshift=-7pt},
+    boxed title style={arc=2pt, boxrule=0pt}}}
+
+% The exact exercise text from the book
+\newtcolorbox{problem}[1]{base, colback=bookbg, colframe=book,
+  boxed title style={colback=book}, title={\faBook\ \ Exercise #1 \,(exact text from the book)}}
+% The same problem in plain words
+\newtcolorbox{restate}{base, colback=minebg, colframe=mine,
+  boxed title style={colback=mine}, title={\faComment*\ \ In plain words}}
+% Concepts needed before we start
+\newtcolorbox{keyidea}{base, colback=ideabg, colframe=idea,
+  boxed title style={colback=idea}, title={\faLightbulb\ \ Key idea}}
+% Final answer
+\newtcolorbox{answer}{base, colback=ansbg, colframe=ans,
+  boxed title style={colback=ans}, title={\faCheckCircle\ \ Answer}}
+% Lessons and common mistakes
+\newtcolorbox{takeaway}{base, colback=warnbg, colframe=warn,
+  boxed title style={colback=warn}, title={\faExclamationTriangle\ \ Takeaway \& common mistakes}}
+% A note about the source / reconstruction
+\newtcolorbox{note}{base, colback=white, colframe=warn, boxrule=0.8pt, title={\faInfoCircle\ \ Note},
+  boxed title style={colback=warn}}
+
+\newcommand{\solution}{\par\smallskip{\large\bfseries\color{navy}\faPencil*\ \ Solution}\par}
+\newcommand{\exercise}[1]{\clearpage\section{Exercise #1}}
+
+% ------------------------------------------------------------------ code
+\lstdefinestyle{rstyle}{language=R, basicstyle=\ttfamily\footnotesize, backgroundcolor=\color{codebg},
+  keywordstyle=\color{navy}\bfseries, commentstyle=\color{book}\itshape, stringstyle=\color{mine!70!black},
+  frame=single, rulecolor=\color{book!40}, framesep=5pt, xleftmargin=6pt, xrightmargin=6pt,
+  breaklines=true, columns=fullflexible, keepspaces=true, showstringspaces=false,
+  literate={<-}{{$\leftarrow$}}1}
+\lstset{style=rstyle}
+
+% ------------------------------------------------------------------ notation
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\V}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Cor}{\mathrm{Cor}}
+\newcommand{\Prob}{\mathrm{Prob}}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\iid}{\stackrel{\text{iid}}{\sim}}
+\newcommand{\dist}[1]{\mathrm{#1}}
+\newcommand{\Sup}{\mathcal{S}}
+\endinput
