@@ -53,3 +53,55 @@ trace_plot <- function(chains, ylab, main = "") {
 post_summary <- function(x, digits = 4) {
   round(c(mean = mean(x), sd = sd(x), quantile(x, c(0.025, 0.975))), digits)
 }
+
+
+# ---- Reusable samplers ----------------------------------------------------------
+
+# Gibbs sampler for Bayesian linear regression
+#   y ~ N(X beta, sigma^2),  beta_j ~ N(0, prior_sd^2),  sigma^2 ~ InvGamma(a, b).
+# Returns a matrix of draws (columns: coefficients, then "sigma").
+gibbs_lm <- function(y, X, prior_sd = 100, a = 0.01, b = 0.01, iters = 10000, burn = 1000) {
+  n <- length(y); p <- ncol(X)
+  XtX <- crossprod(X); Xty <- crossprod(X, y)
+  beta <- qr.solve(X, y); sigma2 <- mean((y - X %*% beta)^2)
+  coef_names <- if (is.null(colnames(X))) paste0("beta", seq_len(p) - 1) else colnames(X)
+  draws <- matrix(NA, iters, p + 1, dimnames = list(NULL, c(coef_names, "sigma")))
+  for (it in seq_len(iters)) {
+    prec  <- XtX / sigma2 + diag(1 / prior_sd^2, p)
+    R     <- chol(prec)                                   # prec = R'R
+    mean  <- backsolve(R, forwardsolve(t(R), Xty / sigma2))
+    beta  <- mean + backsolve(R, rnorm(p))                # draw from N(mean, prec^-1)
+    sse   <- sum((y - X %*% beta)^2)
+    sigma2 <- 1 / rgamma(1, a + n / 2, b + sse / 2)
+    draws[it, ] <- c(beta, sqrt(sigma2))
+  }
+  draws[-seq_len(burn), , drop = FALSE]
+}
+
+# Random-walk Metropolis with a multivariate normal proposal (block update).
+#   log_post: function(theta) returning the log posterior up to a constant
+#   prop_cov: proposal covariance, e.g. (2.4^2 / p) * vcov(glm_fit)
+metropolis_block <- function(log_post, init, prop_cov, iters = 20000, burn = 2000) {
+  p <- length(init); L <- t(chol(prop_cov))
+  theta <- init; lp <- log_post(theta); accepted <- 0
+  draws <- matrix(NA, iters, p, dimnames = list(NULL, names(init)))
+  for (it in seq_len(iters)) {
+    cand <- theta + drop(L %*% rnorm(p))
+    lp_cand <- log_post(cand)
+    if (log(runif(1)) < lp_cand - lp) { theta <- cand; lp <- lp_cand; accepted <- accepted + 1 }
+    draws[it, ] <- theta
+  }
+  structure(draws[-seq_len(burn), , drop = FALSE], acceptance = accepted / iters)
+}
+
+# Inverse-Gaussian random numbers (Michael, Schucany & Haas, 1976).
+rinvgauss <- function(n, mean, shape) {
+  nu <- rnorm(n)^2
+  x  <- mean + mean^2 * nu / (2 * shape) - mean / (2 * shape) * sqrt(4 * mean * shape * nu + mean^2 * nu^2)
+  ifelse(runif(n) <= mean / (mean + x), x, mean^2 / x)
+}
+
+# Summary table (mean, sd, 95% interval) for every column of a draws matrix.
+summary_table <- function(draws, digits = 3) {
+  t(apply(draws, 2, function(x) round(c(mean = mean(x), sd = sd(x), quantile(x, c(0.025, 0.975))), digits)))
+}
