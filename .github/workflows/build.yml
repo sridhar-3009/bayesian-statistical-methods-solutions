@@ -22,3 +22,27 @@ jobs:
         with:
           name: solutions-pdfs
           path: ch*/ch*.pdf
+
+  jags:
+    # The JAGS versions of the models run here, on GitHub's machines.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install R and JAGS
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends r-base jags r-cran-rjags r-cran-coda r-cran-mass
+
+      - name: Run every JAGS script
+        run: |
+          for f in ch*/code/*_jags.R; do
+            echo "########## $f"
+            Rscript "$f"
+          done 2>&1 | tee jags_output.txt
+
+      - name: Upload JAGS output
+        uses: actions/upload-artifact@v4
+        with:
+          name: jags-output
+          path: jags_output.txt
