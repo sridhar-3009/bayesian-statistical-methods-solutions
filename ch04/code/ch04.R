@@ -130,7 +130,7 @@ save_fig("ex02_coefficients", width = 7, height = 4.6, function() {
   points(q_flat[2, ], at + 0.15, pch = 19, col = PALETTE["navy"])
   segments(q_lasso[1, ], at - 0.15, q_lasso[3, ], at - 0.15, lwd = 3, col = PALETTE["red"])
   points(q_lasso[2, ], at - 0.15, pch = 19, col = PALETTE["red"])
-  legend("bottomright", c("Gaussian prior", "double-exponential prior"), lwd = 3,
+  legend("bottomleft", c("Gaussian prior", "double-exponential prior"), lwd = 3,
          col = PALETTE[c("navy", "red")], bty = "n")
 })
 
@@ -603,9 +603,11 @@ band13 <- apply(mix$dens, 2, quantile, c(0.025, 0.5, 0.975))
 say("density matrix: %d draws x %d grid points", nrow(mix$dens), ncol(mix$dens))
 
 save_fig("ex13_mixture", width = 7, height = 3.8, function() {
-  hist(MASS::galaxies, breaks = 25, freq = FALSE, col = adjustcolor(PALETTE["navy"], 0.4), border = "white",
-       main = "", xlab = "velocity (km/s)", ylab = "Density", ylim = c(0, max(band13) * 1.05))
-  polygon(c(mix$grid, rev(mix$grid)), c(band13[1, ], rev(band13[3, ])),
+  h <- hist(MASS::galaxies, breaks = 25, plot = FALSE)
+  h$density <- h$density * 1e5                                   # show density x 10^5
+  plot(h, freq = FALSE, col = adjustcolor(PALETTE["navy"], 0.4), border = "white", main = "",
+       xlab = "velocity (km/s)", ylab = expression("density" %*% 10^5), ylim = c(0, max(band13) * 1.05e5))
+  polygon(c(mix$grid, rev(mix$grid)), 1e5 * c(band13[1, ], rev(band13[3, ])),
           col = adjustcolor(PALETTE["red"], 0.25), border = NA)
-  lines(mix$grid, band13[2, ], lwd = 2.5, col = PALETTE["red"])
+  lines(mix$grid, 1e5 * band13[2, ], lwd = 2.5, col = PALETTE["red"])
 })

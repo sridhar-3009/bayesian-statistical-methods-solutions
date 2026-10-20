@@ -308,10 +308,11 @@ save_fig("ex09_traces", width = 7.5, height = 3, function() {
 
 save_fig("ex09_fit", width = 6.5, height = 3.8, function() {
   pm <- colMeans(post9)
-  hist(galaxies, breaks = 25, freq = FALSE, col = adjustcolor(PALETTE["navy"], 0.5), border = "white",
-       main = "", xlab = "velocity (km/s)", ylab = "Density")
+  h <- hist(galaxies, breaks = 25, plot = FALSE); h$density <- 1e5 * h$density   # density x 10^5
+  plot(h, freq = FALSE, col = adjustcolor(PALETTE["navy"], 0.5), border = "white",
+       main = "", xlab = "velocity (km/s)", ylab = expression("density" %*% 10^5))
   x <- seq(5000, 40000, length.out = 800)
-  lines(x, dt((x - pm["mu"]) / pm["sigma"], pm["k"]) / pm["sigma"], lwd = 2.5, col = PALETTE["red"])
+  lines(x, 1e5 * dt((x - pm["mu"]) / pm["sigma"], pm["k"]) / pm["sigma"], lwd = 2.5, col = PALETTE["red"])
 })
 
 
@@ -347,11 +348,12 @@ save_fig("ex10_posterior", width = 7.5, height = 2.9, function() {
 })
 
 save_fig("ex10_fit", width = 6.5, height = 3.8, function() {
-  hist(galaxies, breaks = 25, freq = FALSE, col = adjustcolor(PALETTE["navy"], 0.5), border = "white",
-       main = "", xlab = "velocity (km/s)", ylab = "Density", ylim = c(0, 1.6e-4))
+  h <- hist(galaxies, breaks = 25, plot = FALSE); h$density <- 1e5 * h$density   # density x 10^5
+  plot(h, freq = FALSE, col = adjustcolor(PALETTE["navy"], 0.5), border = "white",
+       main = "", xlab = "velocity (km/s)", ylab = expression("density" %*% 10^5), ylim = c(0, 16))
   x <- seq(5000, 40000, length.out = 800)
-  lines(x, dlaplace(x, mu_hat, sigma_hat), lwd = 2.5, col = PALETTE["red"])
-  lines(density(y_star), lwd = 2, lty = 2, col = PALETTE["gold"])
+  lines(x, 1e5 * dlaplace(x, mu_hat, sigma_hat), lwd = 2.5, col = PALETTE["red"])
+  d <- density(y_star); lines(d$x, 1e5 * d$y, lwd = 2, lty = 2, col = PALETTE["gold"])
   legend("topright", c("plug-in Laplace", "posterior predictive"), lty = 1:2, lwd = 2,
          col = PALETTE[c("red", "gold")], bty = "n")
 })

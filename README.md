@@ -30,7 +30,7 @@ Each chapter PDF opens with an **Answers at a glance** page and a short **primer
 | 1 | Basics of Bayesian inference | 25 | [PDF](ch01/ch01.pdf) · [LaTeX](ch01/ch01.tex) | [R](ch01/code/ch01.R) |
 | 2 | From prior information to posterior inference | 22 | [PDF](ch02/ch02.pdf) · [LaTeX](ch02/ch02.tex) | [R](ch02/code/ch02.R) |
 | 3 | Computational approaches | 19 | [PDF](ch03/ch03.pdf) · [LaTeX](ch03/ch03.tex) | [R](ch03/code/ch03.R) · [JAGS](ch03/code/ch03_jags.R) |
-| 4 | Linear models | — | coming soon | |
+| 4 | Linear models | 14 | [PDF](ch04/ch04.pdf) · [LaTeX](ch04/ch04.tex) | [R](ch04/code/ch04.R) · [JAGS](ch04/code/ch04_jags.R) |
 | 5 | Hypothesis testing | — | coming soon | |
 | 6 | Model selection and diagnostics | — | coming soon | |
 | 7 | Case studies using hierarchical modeling | — | coming soon | |
@@ -43,7 +43,8 @@ Each chapter PDF opens with an **Answers at a glance** page and a short **primer
 .
 ├── preamble.sty          shared LaTeX style (boxes, colours, notation)
 ├── Makefile              one-command builds
-├── common/helpers.R      shared plotting theme and helpers for all R scripts
+├── common/helpers.R      shared plotting theme, MCMC diagnostics and samplers
+├── data/                 datasets used by the exercises (sources in data/README.md)
 ├── ch01/
 │   ├── ch01.tex          solutions source
 │   ├── ch01.pdf          compiled solutions
