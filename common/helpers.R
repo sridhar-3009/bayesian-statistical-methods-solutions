@@ -105,3 +105,43 @@ rinvgauss <- function(n, mean, shape) {
 summary_table <- function(draws, digits = 3) {
   t(apply(draws, 2, function(x) round(c(mean = mean(x), sd = sd(x), quantile(x, c(0.025, 0.975))), digits)))
 }
+
+
+# ---- Model comparison --------------------------------------------------------------
+
+# WAIC from an S x n matrix of pointwise log-likelihoods log f(Y_i | theta^(s)).
+waic <- function(loglik) {
+  lppd <- sum(apply(loglik, 2, function(l) max(l) + log(mean(exp(l - max(l))))))
+  p_w  <- sum(apply(loglik, 2, var))
+  c(WAIC = -2 * lppd + 2 * p_w, lppd = lppd, pW = p_w)
+}
+
+# DIC from posterior draws of the deviance D(theta) = -2 log f(Y | theta) and the
+# deviance evaluated at the posterior mean of theta.
+dic <- function(deviance_draws, deviance_at_mean) {
+  p_d <- mean(deviance_draws) - deviance_at_mean
+  c(DIC = mean(deviance_draws) + p_d, Dbar = mean(deviance_draws), pD = p_d)
+}
+
+# Posterior predictive p-value: fraction of replicated statistics >= the observed one.
+ppp <- function(rep_stat, obs_stat) mean(rep_stat >= obs_stat)
+
+
+# ---- Student-t model by Gibbs sampling (scale-mixture representation) ---------------
+#   Y_i ~ N(mu, sigma^2 / lambda_i), lambda_i ~ Gamma(k/2, k/2)  <=>  Y_i ~ t_k(mu, sigma)
+#   priors: mu ~ N(0, 10000^2), 1/sigma^2 ~ Gamma(0.01, 0.01), k ~ Uniform(1, 30).
+gibbs_t <- function(y, iters = 20000, mu = median(y), tau = 1 / var(y), k = 5) {
+  n <- length(y); lambda <- rep(1, n)
+  log_post_k <- function(k) if (k <= 1 || k >= 30) -Inf else sum(dgamma(lambda, k / 2, k / 2, log = TRUE))
+  draws <- matrix(NA, iters, 3, dimnames = list(NULL, c("mu", "sigma", "k")))
+  for (it in seq_len(iters)) {
+    prec   <- tau * sum(lambda) + 1 / 10000^2
+    mu     <- rnorm(1, tau * sum(lambda * y) / prec, 1 / sqrt(prec))
+    tau    <- rgamma(1, 0.01 + n / 2, 0.01 + sum(lambda * (y - mu)^2) / 2)
+    lambda <- rgamma(n, (k + 1) / 2, (k + tau * (y - mu)^2) / 2)
+    cand   <- rnorm(1, k, 3)
+    if (log(runif(1)) < log_post_k(cand) - log_post_k(k)) k <- cand
+    draws[it, ] <- c(mu, 1 / sqrt(tau), k)
+  }
+  draws
+}

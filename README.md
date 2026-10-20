@@ -32,7 +32,7 @@ Each chapter PDF opens with an **Answers at a glance** page and a short **primer
 | 3 | Computational approaches | 19 | [PDF](ch03/ch03.pdf) · [LaTeX](ch03/ch03.tex) | [R](ch03/code/ch03.R) · [JAGS](ch03/code/ch03_jags.R) |
 | 4 | Linear models | 14 | [PDF](ch04/ch04.pdf) · [LaTeX](ch04/ch04.tex) | [R](ch04/code/ch04.R) · [JAGS](ch04/code/ch04_jags.R) |
 | 5 | Hypothesis testing | 9 | [PDF](ch05/ch05.pdf) · [LaTeX](ch05/ch05.tex) | [R](ch05/code/ch05.R) |
-| 6 | Model selection and diagnostics | — | coming soon | |
+| 6 | Model selection and diagnostics | 14 | [PDF](ch06/ch06.pdf) · [LaTeX](ch06/ch06.tex) | [R](ch06/code/ch06.R) |
 | 7 | Case studies using hierarchical modeling | — | coming soon | |
 | 8 | Machine learning | — | coming soon | |
 | 9 | Statistical properties of Bayesian methods | — | coming soon | |
