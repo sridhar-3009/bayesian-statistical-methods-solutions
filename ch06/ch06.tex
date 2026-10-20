@@ -639,7 +639,7 @@ B-spline regression (Exercise 4.10): $g(x)=\sum_{j=1}^J\beta_jB_j(x)$, a linear 
 \end{recall}
 
 \begin{keyidea}
-Fit $J=4,6,\dots,30$; compute DIC and WAIC from the posterior, and 10-fold CV prediction error. Then run PPCs on residual autocorrelation (yearly temperatures are persistent).
+Fit $J=4,6,\dots,30$ (priors $\beta_j\sim\dist N(0,100^2)$, $\sigma^2\sim\dist{InvGamma}(0.01,0.001)$ --- vague on the scale of these residuals, whose variance is about 0.01); compute DIC and WAIC from the posterior, and 10-fold CV prediction error. Then run PPCs on residual autocorrelation (yearly temperatures are persistent).
 \end{keyidea}
 
 \solution
@@ -648,16 +648,16 @@ Fit $J=4,6,\dots,30$; compute DIC and WAIC from the posterior, and 10-fold CV pr
 \small
 \begin{tabular}{c|cccc|c}\toprule
 $J$ & DIC & $p_D$ & WAIC & $p_W$ & 10-fold CV RMSE ($^\circ$C)\\\midrule
-4 & $-202.1$ & 4.8 & $-202.7$ & 4.0 & 0.118\\
-8 & $-235.5$ & 8.8 & $-236.3$ & 7.4 & 0.106\\
-10 & $-240.6$ & 10.8 & $-241.8$ & 8.8 & 0.103\\
-12 & $-241.6$ & 12.7 & $-242.6$ & 10.6 & 0.105\\
-16 & $-234.6$ & 16.8 & $-236.3$ & 13.4 & 0.107\\
-18 & $-248.2$ & 18.4 & $-250.8$ & 14.1 & \textbf{0.101}\\
-20 & $-247.3$ & 20.9 & $-250.2$ & 15.9 & 0.102\\
-24 & $\mathbf{-252.5}$ & 24.8 & $\mathbf{-256.1}$ & 18.4 & 0.103\\
-26 & $-249.1$ & 26.7 & $-252.7$ & 19.9 & 0.107\\
-30 & $-244.4$ & 30.5 & $-248.8$ & 22.3 & 0.108\\\bottomrule
+4 & $-203.0$ & 4.9 & $-203.1$ & 4.5 & 0.118\\
+8 & $-237.4$ & 9.0 & $-237.3$ & 8.5 & 0.106\\
+10 & $-243.1$ & 11.0 & $-243.0$ & 10.1 & 0.103\\
+12 & $-244.4$ & 12.9 & $-243.9$ & 12.2 & 0.105\\
+16 & $-238.1$ & 17.0 & $-237.8$ & 15.4 & 0.107\\
+18 & $-252.7$ & 18.6 & $-252.8$ & 16.5 & \textbf{0.101}\\
+20 & $-252.3$ & 21.1 & $-252.4$ & 18.5 & 0.102\\
+24 & $\mathbf{-259.0}$ & 25.1 & $\mathbf{-258.9}$ & 21.9 & 0.103\\
+26 & $-256.0$ & 26.9 & $-255.6$ & 23.6 & 0.107\\
+30 & $-252.3$ & 30.8 & $-252.0$ & 26.5 & 0.108\\\bottomrule
 \end{tabular}
 \end{center}
 \begin{center}\includegraphics[width=0.98\linewidth]{ex12_selection.pdf}\end{center}
@@ -667,15 +667,15 @@ DIC and WAIC are minimised at $J=24$; 10-fold CV at $J=18$. All three criteria a
 \begin{center}
 \begin{tabular}{lcccc}\toprule
  & lag-1 ACF of residuals & kurtosis & max $|\varepsilon|$ & sign changes\\\midrule
-observed & 0.257 & $-0.50$ & 0.230 & 60.6\\
-replicated & $-0.007$ & $-0.08$ & 0.281 & 70.5\\
-PPP & \textbf{0.002} & 0.85 & 0.88 & 0.93\\\bottomrule
+observed & 0.235 & $-0.53$ & 0.223 & 61.6\\
+replicated & $-0.007$ & $-0.08$ & 0.255 & 70.5\\
+PPP & \textbf{0.005} & 0.87 & 0.77 & 0.91\\\bottomrule
 \end{tabular}
 \end{center}
 The residuals are positively autocorrelated (warm years follow warm years beyond the smooth trend; e.g.\ El Ni\~no episodes) and change sign less often than independent noise would. Marginal shape (kurtosis, extremes) is fine.
 
 \begin{answer}
-(a) DIC and WAIC choose $J=24$. (b) 10-fold CV chooses $J=18$; the criteria are flat for $J\approx10$--24. (c) The selected fit fails the residual-autocorrelation check (PPP 0.002): add AR(1) errors (or a smoother with a penalty) for honest uncertainty; the curve itself is fine.
+(a) DIC and WAIC choose $J=24$. (b) 10-fold CV chooses $J=18$; the criteria are flat for $J\approx10$--24. (c) The selected fit fails the residual-autocorrelation check (PPP 0.005): add AR(1) errors (or a smoother with a penalty) for honest uncertainty; the curve itself is fine.
 \end{answer}
 
 \begin{takeaway}

@@ -325,7 +325,7 @@ basis <- function(J) { B <- splines::bs(yr12, df = J, intercept = TRUE); colname
 
 ic12 <- t(sapply(J_grid, function(J) {
   B <- basis(J)
-  dr <- gibbs_lm(y12, B, prior_sd = 100, a = 0.1, b = 0.1, iters = 5000, burn = 1000)
+  dr <- gibbs_lm(y12, B, prior_sd = 100, a = 0.01, b = 0.001, iters = 5000, burn = 1000)
   mu <- dr[, 1:J] %*% t(B)
   ll <- dnorm(matrix(y12, nrow(mu), n12, byrow = TRUE), mu, dr[, "sigma"], log = TRUE)
   dev_mean <- -2 * sum(dnorm(y12, drop(B %*% colMeans(dr[, 1:J])), mean(dr[, "sigma"]), log = TRUE))
@@ -336,7 +336,7 @@ cv12 <- sapply(J_grid, function(J) {
   B <- basis(J); sq <- numeric(n12)
   for (f in 1:10) {
     tr <- folds12 != f
-    dr <- gibbs_lm(y12[tr], B[tr, ], prior_sd = 100, a = 0.1, b = 0.1, iters = 2500, burn = 500)
+    dr <- gibbs_lm(y12[tr], B[tr, ], prior_sd = 100, a = 0.01, b = 0.001, iters = 2500, burn = 500)
     sq[!tr] <- (y12[!tr] - drop(B[!tr, , drop = FALSE] %*% colMeans(dr[, 1:J])))^2
   }
   sqrt(mean(sq))
@@ -358,7 +358,7 @@ save_fig("ex12_selection", width = 7.5, height = 3.2, function() {
 # (c) posterior predictive checks for the selected J
 J_sel <- J_waic
 B12 <- basis(J_sel)
-d12 <- gibbs_lm(y12, B12, prior_sd = 100, a = 0.1, b = 0.1, iters = 11000, burn = 1000)
+d12 <- gibbs_lm(y12, B12, prior_sd = 100, a = 0.01, b = 0.001, iters = 11000, burn = 1000)
 mu12 <- d12[, 1:J_sel] %*% t(B12)
 yrep12 <- mu12 + d12[, "sigma"] * matrix(rnorm(length(mu12)), nrow(mu12))
 res_o <- sweep(-mu12, 2, y12, "+"); res_r <- yrep12 - mu12

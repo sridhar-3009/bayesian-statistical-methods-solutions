@@ -72,7 +72,7 @@ model{
 
 vill <- read.csv(file.path(DIR, "gambia_villages.csv"))
 D6 <- as.matrix(dist(vill[, c("x", "y")]))
-d6 <- report("Ex 6(b)  spatial malaria model", run_jags("
+d6 <- report("Ex 6(b)  spatial malaria model (short run)", run_jags("
 model{
   for(v in 1:V){
     Y[v] ~ dbin(ilogit(alpha[v]), n[v])
@@ -85,4 +85,4 @@ model{
   sigma <- sqrt(s2)
   rho ~ dunif(0, dstar)
 }", list(Y = vill$Y, n = vill$n, V = nrow(vill), D = D6, dstar = max(D6)),
-  c("mu", "sigma", "rho", "alpha"), iters = 25000), keep = c("mu", "sigma", "rho"))
+  c("mu", "sigma", "rho"), burn = 1000, iters = 4000))     # JAGS is slow here: 65 x 65 inverse per update

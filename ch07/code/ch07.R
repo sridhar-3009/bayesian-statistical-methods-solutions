@@ -121,7 +121,7 @@ save_fig("ex03_forest", width = 6.5, height = 4, function() {
   points(raw_lor, y + 0.25, pch = 4, col = PALETTE["red"])
   qo <- quantile(lor, c(0.025, 0.5, 0.975))
   segments(qo[1], -0.2, qo[3], -0.2, lwd = 5, col = PALETTE["gold"]); points(qo[2], -0.2, pch = 18, cex = 1.8, col = PALETTE["gold"])
-  legend("topleft", c("trial posterior (RE model)", "raw estimate", "overall effect"), bty = "n", cex = 0.8,
+  legend("bottomright", c("trial posterior (RE model)", "raw estimate", "overall effect"), bty = "n", cex = 0.8,
          col = c(PALETTE["navy"], PALETTE["red"], PALETTE["gold"]), pch = c(19, 4, 18), lwd = c(3, NA, 5))
 })
 
@@ -354,3 +354,4 @@ save_fig("ex06_maps", width = 7.5, height = 6.6, function() {
   plot(density(post6[, "rho"]), main = "posterior of rho (km)", xlab = expression(rho), lwd = 2,
        col = PALETTE["navy"], zero.line = FALSE)
 })
+say("villages with P(p > 0.5) > 0.9 by easting: %s km", paste(round(sort(vill$x[vill$p_gt_half > 0.9])), collapse = ", "))
