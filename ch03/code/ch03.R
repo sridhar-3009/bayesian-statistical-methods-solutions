@@ -100,10 +100,10 @@ save_fig("ex04_marginals", width = 7.5, height = 5.4, function() {
 
 save_fig("ex04_traces", width = 7.5, height = 3.4, function() {
   par(mfrow = c(1, 2), mar = c(4, 4.2, 2, 0.6))
-  plot(fits4$a10[1:5000, "b"], type = "l", col = PALETTE["navy"], lwd = 0.5,
-       xlab = "iteration", ylab = "b", main = "a = 10")
-  plot(fits4$a1[1:5000, "b"], type = "l", col = PALETTE["red"], lwd = 0.5,
-       xlab = "iteration", ylab = "b", main = "a = 1")
+  plot(fits4$a10[1:5000, "s2_10"], type = "l", col = PALETTE["navy"], lwd = 0.5,
+       xlab = "iteration", ylab = expression(sigma[10]^2), main = "a = 10")
+  plot(fits4$a1[1:5000, "s2_10"], type = "l", col = PALETTE["red"], lwd = 0.5,
+       xlab = "iteration", ylab = expression(sigma[10]^2), main = "a = 1")
 })
 
 

@@ -81,6 +81,19 @@
 % Lessons and common mistakes
 \newtcolorbox{takeaway}{base, colback=warnbg, colframe=warn,
   boxed title style={colback=warn}, title={\faExclamationTriangle\ \ Takeaway \& common mistakes}}
+% Definitions and facts recalled before the solution starts
+\definecolor{recall}{HTML}{7D3C98}
+\definecolor{recallbg}{HTML}{F5EEF8}
+\newtcolorbox{recall}{base, colback=recallbg, colframe=recall,
+  boxed title style={colback=recall}, title={\faGraduationCap\ \ Background you need}}
+% Verifying an answer a second way
+\definecolor{check}{HTML}{2E8B57}
+\definecolor{checkbg}{HTML}{EAF7EE}
+\newtcolorbox{sanity}{base, colback=checkbg, colframe=check,
+  boxed title style={colback=check}, title={\faCheckDouble\ \ Sanity check}}
+% A short "why does this step work?" remark inside a solution
+\newcommand{\why}[1]{\par\begingroup\small\color{book}\faQuestionCircle[regular]\ \emph{Why?}\ #1\par\endgroup}
+
 % A note about the source / reconstruction
 \newtcolorbox{note}{base, colback=white, colframe=warn, boxrule=0.8pt, title={\faInfoCircle\ \ Note},
   boxed title style={colback=warn}}
