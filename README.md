@@ -35,7 +35,7 @@ Each chapter PDF opens with an **Answers at a glance** page and a short **primer
 | 6 | Model selection and diagnostics | 14 | [PDF](ch06/ch06.pdf) · [LaTeX](ch06/ch06.tex) | [R](ch06/code/ch06.R) |
 | 7 | Case studies using hierarchical modeling | 6 | [PDF](ch07/ch07.pdf) · [LaTeX](ch07/ch07.tex) | [R](ch07/code/ch07.R) · [JAGS](ch07/code/ch07_jags.R) |
 | 8 | Machine learning | 11 | [PDF](ch08/ch08.pdf) · [LaTeX](ch08/ch08.tex) | [R](ch08/code/ch08.R) |
-| 9 | Statistical properties of Bayesian methods | — | coming soon | |
+| 9 | Statistical properties of Bayesian methods | 8 | [PDF](ch09/ch09.pdf) · [LaTeX](ch09/ch09.tex) | [R](ch09/code/ch09.R) |
 
 ## Repository layout
 
@@ -68,7 +68,7 @@ make clean    # remove LaTeX build files
 ## Notes
 
 - **JAGS** exercises: every model is also fitted with a hand-written sampler in base R, so all numbers can be reproduced without JAGS. The JAGS scripts (`chXX/code/chXX_jags.R`) run automatically on GitHub Actions; their output is downloadable from the *Actions* tab (artifact `jags-output`) and is quoted in the PDFs.
-- Where a figure or table is missing from the source text, the solution says so and states exactly which data were used. For example, Exercise 1.25 uses the published Moderna trial data.
+- Where the source text is incomplete, the solution says so and states exactly what was assumed: Exercise 1.25 (missing table) uses the published Moderna trial data, Exercise 9.2 (garbled in the book) is reconstructed, and Exercise 8.11 simulates the SIR epidemic directly instead of downloading live COVID-19 feeds.
 - Spotted a mistake or have a cleaner solution? Please open an issue.
 
 ## Copyright
