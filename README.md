@@ -71,6 +71,10 @@ make clean    # remove LaTeX build files
 - Where the source text is incomplete, the solution says so and states exactly what was assumed: Exercise 1.25 (missing table) uses the published Moderna trial data, Exercise 9.2 (garbled in the book) is reconstructed, and Exercise 8.11 simulates the SIR epidemic directly instead of downloading live COVID-19 feeds.
 - Spotted a mistake or have a cleaner solution? Please open an issue.
 
-## Copyright
+## License
 
-The exercise statements are © the authors and CRC Press and are quoted only for study, alongside the solutions. The book itself is **not** included; please buy or borrow a copy. The solutions and code are my own work.
+- **Code** (R scripts, LaTeX style, Makefile, CI): [MIT](LICENSE).
+- **Solutions** (write-ups, PDFs, generated figures): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — share and adapt with credit.
+- **Exercise statements** (the boxes marked *exact text from the book*) and the one book figure in Chapter 1 are © Brian J. Reich, Sujit K. Ghosh and CRC Press, quoted for study only and not covered by these licenses. The book itself is not included; the authors provide it and its datasets on the [book website](https://bayesian-statistical-methods.wordpress.ncsu.edu/).
+
+See [LICENSE](LICENSE) for the full terms.

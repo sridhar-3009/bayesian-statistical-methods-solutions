@@ -1,0 +1,46 @@
+This repository contains three kinds of material, licensed separately.
+
+1. Code — MIT License
+   Applies to: all R scripts (common/, chXX/code/), preamble.sty, Makefile and
+   the GitHub Actions workflow.
+
+   MIT License
+
+   Copyright (c) 2026 Sai Sridhar
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE.
+
+2. Solutions — Creative Commons Attribution 4.0 International (CC BY 4.0)
+   Applies to: the written solutions, explanations and figures produced by the
+   code (chXX/chXX.tex, chXX/chXX.pdf, chXX/figures/), except the material
+   listed in section 3.
+   Copyright (c) 2026 Sai Sridhar.
+   You may share and adapt this material for any purpose, provided you give
+   appropriate credit. Full text: https://creativecommons.org/licenses/by/4.0/
+
+3. Third-party material — NOT covered by the licenses above
+   - The exercise statements, quoted verbatim in the boxes labelled
+     "Exercise ... (exact text from the book)", and the histogram image
+     ch01/figures/ex04_histograms_book.png, are taken from
+     B. J. Reich and S. K. Ghosh, "Bayesian Statistical Methods: With
+     Applications to Machine Learning", 2nd ed., CRC Press. They remain the
+     copyright of the authors and publisher and are reproduced only for
+     study alongside the solutions.
+   - Datasets in data/ keep the terms of their original sources, listed in
+     data/README.md.
