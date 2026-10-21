@@ -33,8 +33,8 @@ Each chapter PDF opens with an **Answers at a glance** page and a short **primer
 | 4 | Linear models | 14 | [PDF](ch04/ch04.pdf) · [LaTeX](ch04/ch04.tex) | [R](ch04/code/ch04.R) · [JAGS](ch04/code/ch04_jags.R) |
 | 5 | Hypothesis testing | 9 | [PDF](ch05/ch05.pdf) · [LaTeX](ch05/ch05.tex) | [R](ch05/code/ch05.R) |
 | 6 | Model selection and diagnostics | 14 | [PDF](ch06/ch06.pdf) · [LaTeX](ch06/ch06.tex) | [R](ch06/code/ch06.R) |
-| 7 | Case studies using hierarchical modeling | — | coming soon | |
-| 8 | Machine learning | — | coming soon | |
+| 7 | Case studies using hierarchical modeling | 6 | [PDF](ch07/ch07.pdf) · [LaTeX](ch07/ch07.tex) | [R](ch07/code/ch07.R) · [JAGS](ch07/code/ch07_jags.R) |
+| 8 | Machine learning | 11 | [PDF](ch08/ch08.pdf) · [LaTeX](ch08/ch08.tex) | [R](ch08/code/ch08.R) |
 | 9 | Statistical properties of Bayesian methods | — | coming soon | |
 
 ## Repository layout
@@ -57,7 +57,7 @@ Each chapter PDF opens with an **Answers at a glance** page and a short **primer
 
 ## Building it yourself
 
-You need R (base R only, no extra packages) and a TeX distribution (TeX Live or MacTeX).
+You need R and a TeX distribution (TeX Live or MacTeX). Chapters 1–7 use base R only (plus the recommended packages MASS, splines and survival that ship with R); Chapter 8 also needs the CRAN packages **BART** and **causaldata** (`install.packages(c("BART", "causaldata"))`).
 
 ```bash
 make ch01     # run the R code, then compile ch01/ch01.pdf
